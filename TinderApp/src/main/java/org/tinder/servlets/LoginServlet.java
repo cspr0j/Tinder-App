@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 
 public class LoginServlet extends HttpServlet {
-    private final Freemarker f = new Freemarker();
+    private final Freemarker freemarker = new Freemarker();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         HashMap<String, Object> data = new HashMap<>();
 
-        f.render("login.ftl", data, resp);
+        freemarker.render("login.html", data, resp);
     }
 }
