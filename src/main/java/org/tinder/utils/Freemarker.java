@@ -29,7 +29,7 @@ public class Freemarker {
     }
 
     public Freemarker() {
-        this("./TinderApp/src/main/resources/templates");
+        this("./src/main/resources/templates");
     }
 
     public void render(final String templateFile, final Map<String, Object> data, final HttpServletResponse resp) {

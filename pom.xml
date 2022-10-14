@@ -8,9 +8,6 @@
     <artifactId>Step-Project</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>TinderApp</module>
-    </modules>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
