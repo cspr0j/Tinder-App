@@ -75,6 +75,7 @@ public class UsersDAO implements DAO<User> {
             ResultSet rSet = ps.executeQuery();
 
             while (rSet.next()) {
+
                 users.add(
                         new User(
                                 rSet.getInt("id"),
