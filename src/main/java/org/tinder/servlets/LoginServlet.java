@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("mypass");
 
         User user = usersService.get(login);
-        if (user == null || !user.getPassword().equals(password)){
+        if (user == null || !user.getPassword().equals(password) || !user.isActive()){
             //TODO add exception
             throw new RuntimeException();
         }

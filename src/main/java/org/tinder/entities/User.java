@@ -23,7 +23,7 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.age = age;
-        setGender(gender);
+        this.gender = gender;
     }
 
     public Integer getGender() {
@@ -31,8 +31,17 @@ public class User {
         else return 1;
     }
 
-    public void setGender(String gender) {
-        if (gender.equals("0")) this.gender = "male";
-        else this.gender = "female";
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", gender='" + (gender.equals("0") ? "male" : "female")  + '\'' +
+                ", isActive=" + isActive +
+                '}';
     }
 }
