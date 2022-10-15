@@ -10,27 +10,29 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class LoginServlet extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
     private final Freemarker freemarker = new Freemarker();
     private final UserService usersService = new UserService();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         HashMap<String, Object> data = new HashMap<>();
-        freemarker.render("login.html", data, resp);
+        freemarker.render("register.html", data, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String login = req.getParameter("login");
-        String password = req.getParameter("mypass");
+        String email = req.getParameter("username");
+        String password = req.getParameter("pass");
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        Integer age = Integer.valueOf(req.getParameter("age"));
+        String gender = req.getParameter("gender");
 
-        User user = usersService.get(login);
-        if (user == null || !user.getPassword().equals(password)){
-            //TODO add exception
-            throw new RuntimeException();
-        }
+        User user = new User(email, password, name, surname, age, gender);
+        usersService.save(user);
 
-        resp.sendRedirect("/users");
+        resp.sendRedirect("/login");
     }
 }
