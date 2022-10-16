@@ -14,7 +14,7 @@ public class ServerApp {
         ServletContextHandler contextHandler = new ServletContextHandler();
         contextHandler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         contextHandler.addServlet(new ServletHolder(new RegistrationServlet()), "/register");
-        contextHandler.addServlet(new ServletHolder(new FileServlet()), "/static/*");
+        contextHandler.addServlet(new ServletHolder(new FileServlet()), "/templates/*");
         server.setHandler(contextHandler);
 
         server.start();
