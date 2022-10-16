@@ -1,36 +1,44 @@
 package org.tinder.dao;
 
+import lombok.RequiredArgsConstructor;
 import org.tinder.database.TinderDB;
-import org.tinder.entities.Like;
+import org.tinder.entities.Message;
 
 import java.sql.Connection;
 import java.util.List;
 
-public class MessageDAO implements DAO<Like> {
+@RequiredArgsConstructor
+public class MessageDAO implements DAO<Message> {
+
+    private final Long idFrom;
     private static final Connection connection;
 
     static {
         connection = TinderDB.connectToDB();
     }
 
-
     @Override
-    public boolean save(Like like) {
+    public boolean save(Message message) {
         return false;
     }
 
     @Override
-    public Like get(String string) {
+    public Message get(Long idTo) {
         return null;
     }
 
     @Override
-    public List<Like> getAllActive() {
+    public List<Message> getAll() {
         return null;
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean update(Message message) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Long id) {
         return false;
     }
 }

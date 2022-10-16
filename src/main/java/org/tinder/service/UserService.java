@@ -19,10 +19,14 @@ public class UserService {
     }
 
     public List<User> getAllActive() {
-        return usersDAO.getAllActive();
+        return usersDAO.getAll();
     }
 
-    public boolean delete(int id) {
+    public boolean update(User user) {
+        return usersDAO.update(user);
+    }
+
+    public boolean delete(Long id) {
         return usersDAO.delete(id);
     }
 }

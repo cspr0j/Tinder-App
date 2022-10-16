@@ -38,6 +38,33 @@ public class UsersDAO implements DAO<User> {
     }
 
     @Override
+    public User get(Long userId) {
+        final String statement = "SELECT * FROM users WHERE id = ?";
+        User user = null;
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement(statement);
+            ps.setLong(1, userId);
+            ResultSet rSet = ps.executeQuery();
+
+            if (rSet.next()) {
+                Long id = rSet.getLong("id");
+                String login = rSet.getString("email");
+                String password = rSet.getString("password");
+                String name = rSet.getString("name");
+                String surname = rSet.getString("surname");
+                Integer age = rSet.getInt("age");
+                String gender = rSet.getString("gender");
+                boolean isActive = rSet.getBoolean("active");
+
+                user = new User(id, login, password, name, surname, age, gender, isActive);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
     public User get(String username) {
         final String statement = "SELECT * FROM users WHERE email = ?";
         User user = null;
@@ -48,7 +75,7 @@ public class UsersDAO implements DAO<User> {
             ResultSet rSet = ps.executeQuery();
 
             if (rSet.next()) {
-                Integer id = rSet.getInt("id");
+                Long id = rSet.getLong("id");
                 String login = rSet.getString("email");
                 String password = rSet.getString("password");
                 String name = rSet.getString("name");
@@ -66,7 +93,7 @@ public class UsersDAO implements DAO<User> {
     }
 
     @Override
-    public List<User> getAllActive() {
+    public List<User> getAll() {
         final String statement = "SELECT * FROM users where active = true";
         PreparedStatement ps;
         List<User> users = new ArrayList<>();
@@ -78,7 +105,7 @@ public class UsersDAO implements DAO<User> {
 
                 users.add(
                         new User(
-                                rSet.getInt("id"),
+                                rSet.getLong("id"),
                                 rSet.getString("email"),
                                 rSet.getString("password"),
                                 rSet.getString("name"),
@@ -95,13 +122,18 @@ public class UsersDAO implements DAO<User> {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean update(User user) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(Long id) {
         final String statement = "update users set active = ? where id = ?";
         PreparedStatement ps;
         try {
             ps = connection.prepareStatement(statement);
             ps.setBoolean(1,false);
-            ps.setInt(2, id);
+            ps.setLong(2, id);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -5,10 +5,11 @@ import java.util.List;
 public interface DAO<T> {
 
     boolean save(T t);
+    T get(Long userId);
 
-    T get(String string);
+    List<T> getAll();
 
-    List<T> getAllActive();
+    boolean update(T t);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 }

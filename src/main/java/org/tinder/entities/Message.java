@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Message {
-    private int userId;
-    private int targetId;
+    private Long userId;
+    private Long targetId;
     private StringBuilder text;
 }
