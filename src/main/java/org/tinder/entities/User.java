@@ -3,6 +3,8 @@ package org.tinder.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.Objects;
+
 @Data
 @AllArgsConstructor
 public class User {
@@ -11,7 +13,7 @@ public class User {
     private String password;
     private String name;
     private String surname;
-//    private String birthDate;
+    //    private String birthDate;
     private Integer age;
     private String gender;
 
@@ -40,8 +42,23 @@ public class User {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
-                ", gender='" + (gender.equals("0") ? "male" : "female")  + '\'' +
+                ", gender='" + (gender.equals("0") ? "male" : "female") + '\'' +
                 ", isActive=" + isActive +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(surname, user.surname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, name, surname);
     }
 }

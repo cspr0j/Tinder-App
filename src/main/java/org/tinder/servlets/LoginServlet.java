@@ -23,10 +23,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String login = req.getParameter("login");
-        String password = req.getParameter("mypass");
+        String password = req.getParameter("password");
 
         User user = usersService.get(login);
-        if (user == null || !user.getPassword().equals(password) || !user.isActive()){
+        if (user == null || !user.getPassword().equals(password) || !user.isActive()) {
             //TODO add exception
             throw new RuntimeException();
         }
