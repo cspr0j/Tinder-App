@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public List<User> getAllActive() {
-        return usersDAO.getAll();
+        return usersDAO.getAllItemsFromDB();
     }
 
     public boolean update(User user) {

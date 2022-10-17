@@ -27,10 +27,11 @@ public class RegistrationServlet extends HttpServlet {
         String password = req.getParameter("password");
         String name = req.getParameter("name");
         String surname = req.getParameter("surname");
+        String photoUrl = req.getParameter("url");
         Integer age = Integer.valueOf(req.getParameter("age"));
         String gender = req.getParameter("gender");
 
-        User user = new User(email, password, name, surname, age, gender);
+        User user = new User(email, password, name, surname, photoUrl, age, gender);
         if (usersService.get(user.getEmail()) != null) {
             //TODO add exception
             throw new RuntimeException();

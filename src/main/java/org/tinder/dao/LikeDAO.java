@@ -59,7 +59,7 @@ public class LikeDAO implements DAO<Like> {
     }
 
     @Override
-    public List<Like> getAll() {
+    public List<Like> getAllItemsFromDB() {
         List<Like> likes = new ArrayList<>();
         final String statement = "SELECT * FROM likes WHERE user_id = ?";
         try {

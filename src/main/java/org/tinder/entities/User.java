@@ -2,28 +2,33 @@ package org.tinder.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
     private Long id;
     private String email; // login
     private String password;
     private String name;
     private String surname;
+    private String photo_url;
     //    private String birthDate;
     private Integer age;
     private String gender;
 
     private boolean isActive;
 
-    public User(String email, String password, String name, String surname, Integer age, String gender) {
+    public User(String email, String password, String name,
+                String surname, String photo_url, Integer age, String gender) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.photo_url = photo_url;
         this.age = age;
         this.gender = gender;
     }
