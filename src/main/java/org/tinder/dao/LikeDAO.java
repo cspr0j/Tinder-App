@@ -43,13 +43,13 @@ public class LikeDAO implements DAO<Like> {
         try {
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setLong(1, idFrom);
-            ps.setLong(2,idTo);
+            ps.setLong(2, idTo);
             ResultSet rSet = ps.executeQuery();
 
             if (rSet.next()) {
                 Long userId = rSet.getLong("user_id");
                 Long likedUserId = rSet.getLong("liked_user_id");
-                like = new Like(userId,likedUserId);
+                like = new Like(userId, likedUserId);
             }
 
         } catch (SQLException e) {
@@ -61,7 +61,7 @@ public class LikeDAO implements DAO<Like> {
     @Override
     public List<Like> getAll() {
         List<Like> likes = new ArrayList<>();
-        final String statement ="SELECT * FROM likes WHERE user_id = ?";
+        final String statement = "SELECT * FROM likes WHERE user_id = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setLong(1, idFrom);
@@ -69,8 +69,8 @@ public class LikeDAO implements DAO<Like> {
 
             while (rSet.next()) {
                 likes.add(new Like(
-                        rSet.getLong("userId"),
-                        rSet.getLong("liked")
+                        rSet.getLong("user_id"),
+                        rSet.getLong("liked_user_id")
                 ));
             }
 

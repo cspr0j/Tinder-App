@@ -132,7 +132,7 @@ public class UsersDAO implements DAO<User> {
         PreparedStatement ps;
         try {
             ps = connection.prepareStatement(statement);
-            ps.setBoolean(1,false);
+            ps.setBoolean(1, false);
             ps.setLong(2, id);
             ps.execute();
         } catch (SQLException e) {

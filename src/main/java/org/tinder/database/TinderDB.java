@@ -17,7 +17,7 @@ public class TinderDB {
     private static Connection connection;
 
     public static Connection connectToDB() {
-        if (connection != null){
+        if (connection != null) {
             //TODO: replace with exception
             return null;
         }

@@ -1,15 +1,17 @@
 package org.tinder.servlets;
 
+import org.tinder.utils.Freemarker;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.util.HashMap;
 
 public class FileServlet extends HttpServlet {
+    private final Freemarker freemarker = new Freemarker();
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Files.copy(Paths.get("./src/main/resources/static/", req.getPathInfo()), resp.getOutputStream());
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        freemarker.render(req.getPathInfo(), new HashMap<>(), resp);
     }
 }
