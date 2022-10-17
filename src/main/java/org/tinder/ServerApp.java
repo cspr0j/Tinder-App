@@ -6,7 +6,6 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.tinder.servlets.FileServlet;
 import org.tinder.servlets.LoginServlet;
 import org.tinder.servlets.RegistrationServlet;
-import org.tinder.servlets.UserServlet;
 
 public class ServerApp {
     public static void main(String[] args) throws Exception {
@@ -16,7 +15,6 @@ public class ServerApp {
         contextHandler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         contextHandler.addServlet(new ServletHolder(new RegistrationServlet()), "/register");
         contextHandler.addServlet(new ServletHolder(new FileServlet()), "/templates/*");
-        contextHandler.addServlet(new ServletHolder(new UserServlet()), "/users");
 
         server.setHandler(contextHandler);
 

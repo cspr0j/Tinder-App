@@ -4,10 +4,6 @@ import lombok.AllArgsConstructor;
 import org.tinder.dao.LikeDAO;
 import org.tinder.entities.Like;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
