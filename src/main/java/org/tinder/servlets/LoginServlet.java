@@ -4,11 +4,13 @@ import org.tinder.entities.User;
 import org.tinder.service.UserService;
 import org.tinder.utils.Freemarker;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class LoginServlet extends HttpServlet {
     private final Freemarker freemarker = new Freemarker();
@@ -16,6 +18,9 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        Cookie cookie = new Cookie("user_id", UUID.randomUUID().toString());
+        System.out.printf("Cookie name = %s, id = %s\n", cookie.getName(), cookie.getValue());
+        resp.addCookie(cookie);
         HashMap<String, Object> data = new HashMap<>();
         freemarker.render("login.html", data, resp);
     }

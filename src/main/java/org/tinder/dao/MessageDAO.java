@@ -62,7 +62,6 @@ public class MessageDAO implements DAO<Message> {
         return message;
     }
 
-    @Override
     public List<Message> getAll() {
         List<Message> messages = new ArrayList<>();
         final String statement = "SELECT * FROM messages WHERE user_id = ?";
