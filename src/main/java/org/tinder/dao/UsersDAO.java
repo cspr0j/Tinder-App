@@ -100,7 +100,7 @@ public class UsersDAO implements DAO<User> {
 
     @Override
     public List<User> getAllItemsFromDB() {
-        final String statement = "SELECT * FROM users where is_active = ?";
+        final String statement = "SELECT * FROM users where is_active = ? ORDER BY id";
         PreparedStatement ps;
         List<User> users = new ArrayList<>();
         try {
@@ -147,5 +147,67 @@ public class UsersDAO implements DAO<User> {
             e.printStackTrace();
         }
         return true;
+    }
+
+    public User getNotLikedUserV1(Long userId){
+        final String statement = "SELECT * FROM users WHERE id =? AND is_active = ?";
+        User user = null;
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement(statement);
+            ps.setLong(1, userId);
+            ps.setBoolean(2, true);
+            ResultSet rSet = ps.executeQuery();
+
+            if (rSet.next()) {
+                Long id = rSet.getLong("id");
+                String login = rSet.getString("email");
+                String password = rSet.getString("password");
+                String name = rSet.getString("name");
+                String surname = rSet.getString("surname");
+                String url = rSet.getString("photo_url");
+                Integer age = rSet.getInt("age");
+                String gender = rSet.getString("gender");
+                boolean isActive = rSet.getBoolean("is_active");
+
+                user = new User(id, login, password, name, surname, url, age, gender, isActive);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public User getNotLikedUserV2(Long userId){
+        final String statement = "SELECT * FROM users " +
+                "WHERE is_active = ? AND NOT id = ? " +
+                "AND id NOT IN (SELECT l.liked_user_id FROM likes l where user_id = ?) ORDER BY id LIMIT 1";
+
+        User user = null;
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement(statement);
+            ps.setBoolean(1, true);
+            ps.setLong(2, userId);
+            ps.setLong(3, userId);
+            ResultSet rSet = ps.executeQuery();
+
+            if (rSet.next()) {
+                Long id = rSet.getLong("id");
+                String login = rSet.getString("email");
+                String password = rSet.getString("password");
+                String name = rSet.getString("name");
+                String surname = rSet.getString("surname");
+                String url = rSet.getString("photo_url");
+                Integer age = rSet.getInt("age");
+                String gender = rSet.getString("gender");
+                boolean isActive = rSet.getBoolean("is_active");
+
+                user = new User(id, login, password, name, surname, url, age, gender, isActive);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }

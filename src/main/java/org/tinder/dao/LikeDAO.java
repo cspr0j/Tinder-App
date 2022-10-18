@@ -61,7 +61,8 @@ public class LikeDAO implements DAO<Like> {
     @Override
     public List<Like> getAllItemsFromDB() {
         List<Like> likes = new ArrayList<>();
-        final String statement = "SELECT * FROM likes WHERE user_id = ?";
+//        final String statement = "SELECT * FROM likes WHERE user_id = ?"; //old
+        final String statement = "SELECT * FROM likes WHERE user_id = ? ORDER BY liked_user_id"; // new
         try {
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setLong(1, idFrom);

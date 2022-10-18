@@ -4,6 +4,7 @@ import org.tinder.entities.User;
 import org.tinder.service.UserService;
 import org.tinder.utils.Freemarker;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,10 @@ public class LoginServlet extends HttpServlet {
             //TODO add exception
             throw new RuntimeException();
         }
+
+        Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
+        System.out.printf("Cookie name = %s, id = %s\n", cookie.getName(), cookie.getValue());
+        resp.addCookie(cookie);
 
         resp.sendRedirect("/users");
     }

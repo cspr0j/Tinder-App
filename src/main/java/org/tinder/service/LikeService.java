@@ -5,6 +5,7 @@ import org.tinder.dao.LikeDAO;
 import org.tinder.entities.Like;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class LikeService {
@@ -20,8 +21,14 @@ public class LikeService {
         return likeDAO.get(idTo);
     }
 
-    public List<Like> getAllItemsFromDB() {
+    public List<Like> getAllLikes() {
         return likeDAO.getAllItemsFromDB();
+    }
+    public List<Long> getAllLikesId() {
+        return getAllLikes()
+                .stream()
+                .map(Like::getLikedUserId)
+                .collect(Collectors.toList());
     }
 
     public boolean update(Like like) {
