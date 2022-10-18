@@ -28,11 +28,16 @@ public class LikedServletViaList extends HttpServlet {
         if (users.isEmpty()) users = userService.getAllActive();
 
         users.removeIf(user -> service.getAllLikesId().contains(user.getId()) || user.getId().equals(id));
-        System.out.println(users);
+        System.out.println(users.get(0));
+        data.put("user", users.get(0));
+        freemarker.render("like-page.ftl", data, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String userId = req.getParameter("userId");
+        System.out.println(userId);
+        System.out.println(req.getParameter("dislike") == null);
+        resp.sendRedirect("/users");
     }
 }

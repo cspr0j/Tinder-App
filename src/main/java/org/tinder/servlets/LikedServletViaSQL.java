@@ -27,10 +27,15 @@ public class LikedServletViaSQL extends HttpServlet {
         User user = userService.getNotLikedUserV2(id);
         System.out.println(user);
 //        System.out.println(userService.getNotLikedUser(id));
+        data.put("user", user);
+        freemarker.render("like-page.ftl", data, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String userId = req.getParameter("userId");
+        System.out.println(userId);
+        System.out.println(req.getParameter("dislike") == null);
+        resp.sendRedirect("/users");
     }
 }

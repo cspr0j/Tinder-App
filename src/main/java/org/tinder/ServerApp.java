@@ -3,9 +3,7 @@ package org.tinder;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import org.tinder.servlets.FileServlet;
-import org.tinder.servlets.LoginServlet;
-import org.tinder.servlets.RegistrationServlet;
+import org.tinder.servlets.*;
 
 public class ServerApp {
     public static void main(String[] args) throws Exception {
@@ -15,7 +13,7 @@ public class ServerApp {
         contextHandler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         contextHandler.addServlet(new ServletHolder(new RegistrationServlet()), "/register");
 //        contextHandler.addServlet(new ServletHolder(new LikedServletViaList()), "/users");
-//        contextHandler.addServlet(new ServletHolder(new LikedServletViaSQL()), "/users");
+        contextHandler.addServlet(new ServletHolder(new LikedServletViaSQL()), "/users");
         contextHandler.addServlet(new ServletHolder(new FileServlet()), "/templates/*");
 
         server.setHandler(contextHandler);
