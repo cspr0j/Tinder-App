@@ -1,6 +1,7 @@
 package org.tinder.servlets;
 
 import org.tinder.dao.LikeDAO;
+import org.tinder.entities.Like;
 import org.tinder.entities.User;
 import org.tinder.service.LikeService;
 import org.tinder.service.UserService;
@@ -16,26 +17,36 @@ import java.util.HashMap;
 
 public class LikedServletViaSQL extends HttpServlet {
     private final Freemarker freemarker = new Freemarker();
+    private Long id;
     HashMap<String, Object> data = new HashMap<>();
     UserService userService = new UserService();
+    LikeService service;
 //    List<User> users = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = CookieUtil.getValue(req);
-        LikeService service = new LikeService(new LikeDAO(id));
+        id = CookieUtil.getValue(req);
         User user = userService.getNotLikedUserV2(id);
-        System.out.println(user);
-//        System.out.println(userService.getNotLikedUser(id));
+        if (user == null) {
+            resp.sendRedirect("/liked");
+            return;
+        }
+
         data.put("user", user);
         freemarker.render("like-page.ftl", data, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId = req.getParameter("userId");
-        System.out.println(userId);
-        System.out.println(req.getParameter("dislike") == null);
+        Long userId = Long.valueOf(req.getParameter("userId"));
+
+        service = new LikeService(new LikeDAO(id));
+        boolean likeB = Boolean.parseBoolean(req.getParameter("like"));
+        if (likeB) {
+            service.save(new Like(id, userId));
+        } else {
+            System.out.println("dislike!!!");
+        }
         resp.sendRedirect("/users");
     }
 }

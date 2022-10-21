@@ -5,6 +5,7 @@ import org.tinder.dao.MessageDAO;
 import org.tinder.entities.Message;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class MessageService {
@@ -24,8 +25,12 @@ public class MessageService {
         return messageDAO.getAllItemsFromDB();
     }
 
-    public List<Message> getAllItemsByTargetId(Long targetId) {
-        return messageDAO.getAllItemsByTargetId(targetId);
+    public List<Message> getAllItemsByTargetId(Long userOne, Long userTwo) {
+        return getAllItemsFromDB().stream()
+                .filter(message -> !message.getUserId().equals(message.getTargetId()))
+                .filter(message -> message.getTargetId().equals(userOne) || message.getTargetId().equals(userTwo))
+                .filter(message -> message.getUserId().equals(userOne) || message.getUserId().equals(userTwo))
+                .collect(Collectors.toList());
     }
 
     public boolean update(Message message) {
