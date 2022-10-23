@@ -7,9 +7,11 @@ import org.tinder.servlets.*;
 
 public class ServerApp {
     public static void main(String[] args) throws Exception {
+        // getting Heroku port
         String webPort = System.getenv("PORT");
 
         if(webPort == null || webPort.isEmpty()) {
+            // for local machine
             webPort = "8080";
         }
         Server server = new Server(Integer.parseInt(webPort));
