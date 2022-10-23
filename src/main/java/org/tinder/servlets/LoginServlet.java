@@ -17,6 +17,9 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        Cookie cookie = new Cookie("user_id", UUID.randomUUID().toString());
+        System.out.printf("Cookie name = %s, id = %s\n", cookie.getName(), cookie.getValue());
+        resp.addCookie(cookie);
         HashMap<String, Object> data = new HashMap<>();
         freemarker.render("login.html", data, resp);
     }
