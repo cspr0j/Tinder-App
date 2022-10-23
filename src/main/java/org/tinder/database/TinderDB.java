@@ -8,11 +8,11 @@ import java.sql.SQLException;
 
 @NoArgsConstructor
 public class TinderDB {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/Tinder";
+    private static final String DB_URL = "jdbc:postgresql://ec2-54-228-32-29.eu-west-1.compute.amazonaws.com:5432/d1g151j8kpi17b";
 
     //TODO: change if yours is different
-    private static final String USERNAME = "postgres";
-    private static final String PASSWORD = "admin";
+    private static final String USERNAME = "ttdqdxwwcdkaay";
+    private static final String PASSWORD = "bf75da1d28445b29dc7ae648114302eb890c641a62345f6ba94318c44f64e781";
 
     private static Connection connection;
 
