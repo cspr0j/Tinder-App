@@ -12,46 +12,51 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class UserServlet extends HttpServlet {
-
-    List<User> userList = new ArrayList<>();
-
-    List<Integer> likedUsers = new ArrayList<>();
+public class UserServletViaSQL extends HttpServlet {
     private final Freemarker freemarker = new Freemarker();
-
-    int count = 0;
+    HashMap<String, Object> data = new HashMap<>();
     UserService userService = new UserService();
+//    List<User> users = new ArrayList<>();
     long id;
+    int count = 0;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         List<User> users = userService.getAllActive();
         User user = users.get(count);
         id = user.getId();
-        userList.add(user);
+//        userList.add(user);
+        
+        if (count + 1 == users.size()) {
+            //todo liked list html gonderilsin
+            count = 0;
+            resp.sendRedirect("/likes");
+        } else {
+            count++;
+        }
 
         HashMap<String, Object> data = new HashMap<>();
-        data.put("userList", userList);
+        data.put("users", user);
         freemarker.render("users.ftl", data, resp);
-        count++;
+        
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String dislike = req.getParameter("dislike");
         String like = req.getParameter("like");
-        System.out.println(dislike);
-        System.out.println(like);
+//        String dislike = req.getParameter("dislike");
 
-        if (!req.getParameter("like").isEmpty()) {
+        if (like != null && !like.isEmpty()) {
             Long id = CookieUtil.getValue(req);
             LikeService likeService = new LikeService(id);
-            likeService.save(new Like(id, this.id));
-            resp.sendRedirect("templates/users.ftl");
+            boolean save = likeService.save(new Like(id, this.id));
+            resp.sendRedirect("/users");
+        } else {
+            resp.sendRedirect("/users");
         }
+
     }
 }

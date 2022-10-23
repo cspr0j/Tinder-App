@@ -24,7 +24,7 @@ public class LikedServletViaList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = CookieUtil.getValue(req);
-        LikeService service = new LikeService(new LikeDAO(id));
+        LikeService service = new LikeService(id);
         if (users.isEmpty()) users = userService.getAllActive();
 
         users.removeIf(user -> service.getAllLikesId().contains(user.getId()) || user.getId().equals(id));
