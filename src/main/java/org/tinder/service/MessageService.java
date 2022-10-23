@@ -1,16 +1,18 @@
 package org.tinder.service;
 
-import lombok.AllArgsConstructor;
 import org.tinder.dao.MessageDAO;
 import org.tinder.entities.Message;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@AllArgsConstructor
 public class MessageService {
 
     private final MessageDAO messageDAO;
+
+    public MessageService(Long id) {
+        this.messageDAO = new MessageDAO(id);
+    }
 
     public boolean save(Message message) {
         return messageDAO.save(message);
