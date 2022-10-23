@@ -7,11 +7,11 @@ stages:
 
 build:
   stage: build
-  script: ./mvnw compile
+  script: mvn package
 
 test:
   stage: test
-  script: ./mvnw test
+  script: mvn test
 
 deploy:
   stage: deploy
