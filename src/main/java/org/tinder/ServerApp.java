@@ -7,7 +7,12 @@ import org.tinder.servlets.*;
 
 public class ServerApp {
     public static void main(String[] args) throws Exception {
-        Server server = new Server(6067);
+        String webPort = System.getenv("PORT");
+
+        if(webPort == null || webPort.isEmpty()) {
+            webPort = "8080";
+        }
+        Server server = new Server(Integer.parseInt(webPort));
 
         ServletContextHandler contextHandler = new ServletContextHandler();
         contextHandler.addServlet(new ServletHolder(new LoginServlet()), "/login");
