@@ -1,1 +1,1 @@
-web: java -jar target/Tinder-App-1.0-SNAPSHOT.jar
+web: java -jar target/TinderApp.jar
