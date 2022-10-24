@@ -29,7 +29,6 @@
                         <h5>Personal Information:</h5>
                         <p>Age:<i class="lnr lnr-calendar-full"></i> ${user.age} years old</p>
                         <p>Email:<i class="lnr lnr-envelope"></i> ${user.email}</p>
-                        <p>Phone Number:<i class="lnr lnr-phone-handset"></i> (+994 50) 573 27 30</p>
                         <p>Address:<i class="lnr lnr-home"></i> Baku, Azerbaijan</p>
                     </div>
 
