@@ -32,6 +32,7 @@ public class LikedServletViaSQL extends HttpServlet {
 
         data.put("user", user);
         freemarker.render("like-page.ftl", data, resp);
+
     }
 
     @Override

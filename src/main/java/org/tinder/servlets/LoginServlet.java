@@ -1,10 +1,8 @@
 package org.tinder.servlets;
 
-import org.tinder.entities.User;
 import org.tinder.service.UserService;
 import org.tinder.utils.Freemarker;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,19 +21,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-
-        User user = usersService.getById(login);
-        if (user == null || !user.getPassword().equals(password) || !user.isActive()) {
-            //TODO add exception
-            throw new RuntimeException();
-        }
-
-        Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
-        System.out.printf("Cookie name = %s, id = %s\n", cookie.getName(), cookie.getValue());
-        resp.addCookie(cookie);
-
         resp.sendRedirect("/users");
     }
 }
