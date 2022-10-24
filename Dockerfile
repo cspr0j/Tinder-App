@@ -5,7 +5,6 @@ COPY . /usr/src/app
 
 RUN mvn package
 
-
 FROM adoptopenjdk/openjdk11:alpine-jre
 
 ARG JAR_FILE=TinderApp.jar

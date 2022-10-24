@@ -22,17 +22,14 @@ public class UserService {
         return usersDAO.get(id);
     }
 
-    public User getNotLikedUserV1(Long id){
-        return usersDAO.getNotLikedUserV1(id);
-    }
-
-    public User getNotLikedUserV2(Long id){
-        return usersDAO.getNotLikedUserV2(id);
+    public User getNotLikedUser(Long id) {
+        return usersDAO.getNotLikedUser(id);
     }
 
     public List<User> getAllActive() {
         return usersDAO.getAllItemsFromDB();
     }
+
     public boolean update(User user) {
         return usersDAO.update(user);
     }

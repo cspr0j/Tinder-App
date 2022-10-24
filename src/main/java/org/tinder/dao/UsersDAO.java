@@ -149,36 +149,7 @@ public class UsersDAO implements DAO<User> {
         return true;
     }
 
-    public User getNotLikedUserV1(Long userId){
-        final String statement = "SELECT * FROM users WHERE id =? AND is_active = ?";
-        User user = null;
-        PreparedStatement ps;
-        try {
-            ps = connection.prepareStatement(statement);
-            ps.setLong(1, userId);
-            ps.setBoolean(2, true);
-            ResultSet rSet = ps.executeQuery();
-
-            if (rSet.next()) {
-                Long id = rSet.getLong("id");
-                String login = rSet.getString("email");
-                String password = rSet.getString("password");
-                String name = rSet.getString("name");
-                String surname = rSet.getString("surname");
-                String url = rSet.getString("photo_url");
-                Integer age = rSet.getInt("age");
-                String gender = rSet.getString("gender");
-                boolean isActive = rSet.getBoolean("is_active");
-
-                user = new User(id, login, password, name, surname, url, age, gender, isActive);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return user;
-    }
-
-    public User getNotLikedUserV2(Long userId){
+    public User getNotLikedUser(Long userId) {
         final String statement = "SELECT * FROM users " +
                 "WHERE is_active = ? AND NOT id = ? " +
                 "AND id NOT IN (SELECT l.liked_user_id FROM likes l where user_id = ?) ORDER BY id LIMIT 1";

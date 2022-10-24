@@ -16,10 +16,10 @@ import java.util.List;
 
 public class MessageServlet extends HttpServlet {
 
-    private Long senderID;
     HashMap<String, Object> data = new HashMap<>();
     UserService userService = new UserService();
     Freemarker freemarker = new Freemarker();
+    private Long senderID;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,8 +30,8 @@ public class MessageServlet extends HttpServlet {
         List<Message> messages = messageService.getAllItemsByTargetId(senderID, targetId);
         System.out.println(messages);
 
-        data.put("sender",userService.get(senderID));
-        data.put("receiver",userService.get(targetId));
+        data.put("sender", userService.get(senderID));
+        data.put("receiver", userService.get(targetId));
         data.put("messages", messages);
         freemarker.render("chat.ftl", data, resp);
     }

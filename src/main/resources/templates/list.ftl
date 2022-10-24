@@ -52,7 +52,8 @@
                                     <td class="align-middle">
                                         <form method="post">
                                             <button type="submit" name="id" value='${user.id}'
-                                                    class="btn btn-outline-secondary"><i class="fa fa-paper-plane"> Message</i>
+                                                    class="btn btn-outline-secondary"><i class="fa fa-paper-plane">
+                                                    Message</i>
                                             </button>
                                         </form>
                                     </td>

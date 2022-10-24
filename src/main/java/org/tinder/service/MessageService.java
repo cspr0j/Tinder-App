@@ -18,11 +18,6 @@ public class MessageService {
         return messageDAO.save(message);
     }
 
-    // TODO delete if it is not necessary
-//    public Message get(Long idTo) {
-//        return messageDAO.get(idTo);
-//    }
-
     public List<Message> getAllItemsFromDB() {
         return messageDAO.getAllItemsFromDB();
     }

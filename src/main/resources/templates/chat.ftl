@@ -27,10 +27,10 @@
                 <div class="card-body msg_card_body">
                     <#list messages as message>
                         <#if message.userId == sender.id>
-<#--                        &lt;#&ndash;                        TODO:  think about of deleting this: &ndash;&gt;-->
-<#--                            <div class="sender-img">-->
-<#--                                <img src="${sender.photo_url}" alt="" class="float-right">-->
-<#--                            </div>-->
+                        <#--                        &lt;#&ndash;                        TODO:  think about of deleting this: &ndash;&gt;-->
+                        <#--                            <div class="sender-img">-->
+                        <#--                                <img src="${sender.photo_url}" alt="" class="float-right">-->
+                        <#--                            </div>-->
                             <div class="send-msg float-right mb-2">
                                 <p class="pt-1 pb-1 pl-2 pr-2 m-0 rounded">
                                     ${message.text}

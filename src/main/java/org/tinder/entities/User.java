@@ -11,12 +11,11 @@ import java.util.Objects;
 @NoArgsConstructor
 public class User {
     private Long id;
-    private String email; // login
+    private String email;
     private String password;
     private String name;
     private String surname;
     private String photo_url;
-    //    private String birthDate;
     private Integer age;
     private String gender;
 

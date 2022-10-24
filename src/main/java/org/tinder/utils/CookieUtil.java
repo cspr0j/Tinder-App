@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class CookieUtil {
 
-    public static Long getValue(HttpServletRequest request){
+    public static Long getValue(HttpServletRequest request) {
         Cookie[] cookiesFromRequest = request.getCookies();
 
         return Arrays.stream(cookiesFromRequest)

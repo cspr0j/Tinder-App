@@ -10,7 +10,7 @@ public class ServerApp {
         // getting Heroku port
         String webPort = System.getenv("PORT");
 
-        if(webPort == null || webPort.isEmpty()) {
+        if (webPort == null || webPort.isEmpty()) {
             // for local machine
             webPort = "8080";
         }
@@ -19,7 +19,6 @@ public class ServerApp {
         ServletContextHandler contextHandler = new ServletContextHandler();
         contextHandler.addServlet(new ServletHolder(new LoginServlet()), "/login");
         contextHandler.addServlet(new ServletHolder(new RegistrationServlet()), "/register");
-//        contextHandler.addServlet(new ServletHolder(new LikedServletViaList()), "/users");
         contextHandler.addServlet(new ServletHolder(new LikedServletViaSQL()), "/users");
         contextHandler.addServlet(new ServletHolder(new ListServlet()), "/liked");
         contextHandler.addServlet(new ServletHolder(new MessageServlet()), "/messages/*");

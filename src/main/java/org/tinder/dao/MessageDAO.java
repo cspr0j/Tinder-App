@@ -11,12 +11,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MessageDAO implements DAO<Message> {
 
-    private final Long idFrom;
     private static final Connection connection;
 
     static {
         connection = TinderDB.connectToDB();
     }
+
+    private final Long idFrom;
 
     @Override
     public boolean save(Message message) {
@@ -35,32 +36,6 @@ public class MessageDAO implements DAO<Message> {
         return true;
     }
 
-    // TODO delete if it is not necessary
-//    @Override
-//    public Message get(Long idTo) {
-//        Message message = null;
-//        final String statement = "SELECT * FROM messages WHERE message_id = ?";
-//        try {
-//            PreparedStatement ps = connection.prepareStatement(statement);
-//            ps.setLong(1, idTo);
-//            ResultSet rSet = ps.executeQuery();
-//
-//            if (rSet.next()) {
-//                Long messageId = rSet.getLong("message_id");
-//                Long userId = rSet.getLong("user_id");
-//                Long likedUserId = rSet.getLong("target_id");
-//                String text = rSet.getString("message");
-//                Timestamp date = rSet.getTimestamp("date");
-//                message = new Message(messageId, userId, likedUserId, text, date);
-//            }
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return message;
-//    }
-
     @Override
     public List<Message> getAllItemsFromDB() {
         List<Message> messages = new ArrayList<>();
@@ -68,33 +43,6 @@ public class MessageDAO implements DAO<Message> {
         try {
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setBoolean(1, false);
-            ResultSet rSet = ps.executeQuery();
-
-            while (rSet.next()) {
-                messages.add(new Message(
-                        rSet.getLong("message_id"),
-                        rSet.getLong("user_id"),
-                        rSet.getLong("target_id"),
-                        rSet.getString("message"),
-                        rSet.getTimestamp("date")
-                ));
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return messages;
-    }
-
-    @Override
-    public List<Message> getAllItemsByTargetId(Long targetId) {
-        List<Message> messages = new ArrayList<>();
-        final String statement = "SELECT * FROM messages WHERE user_id = ? AND target_id = ? AND is_deleted = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(statement);
-            ps.setLong(1, idFrom);
-            ps.setLong(2, targetId);
-            ps.setBoolean(3, false);
             ResultSet rSet = ps.executeQuery();
 
             while (rSet.next()) {
@@ -140,7 +88,6 @@ public class MessageDAO implements DAO<Message> {
     /**
      * Deletes selected messages
      */
-    @Override
     public boolean delete(Long idTo, List<Long> idList) {
         final String statement = "UPDATE messages SET is_deleted = ? WHERE user_id = ?" +
                 " AND target_id = ? AND message_id = Any (?)";
