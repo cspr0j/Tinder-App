@@ -90,12 +90,26 @@ public class MessageDAO implements DAO<Message> {
     @Override
     public List<Message> getAllItemsByTargetId(Long targetId) {
         List<Message> messages = new ArrayList<>();
-        final String statement = "SELECT * FROM messages WHERE user_id = ? AND target_id = ? AND is_deleted = ?";
+        final String statement = "select message_id, user_id, target_id, message, message_date\n" +
+                "from ((select *\n" +
+                "       from messages\n" +
+                "       where user_id = ?\n" +
+                "         and target_id = ?\n" +
+                "       order by message_date) UNION ALL\n" +
+                "                              (select *\n" +
+                "                               from messages\n" +
+                "                               where user_id = ? and target_id = ?\n" +
+                "                               order by message_date)\n" +
+                "\n" +
+                "                            ) as m\n" +
+                "order by m.message_date;";
         try {
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setLong(1, idFrom);
             ps.setLong(2, targetId);
-            ps.setBoolean(3, false);
+            ps.setLong(3, targetId);
+            ps.setLong(4, idFrom);
+//            ps.setBoolean(3, false);
             ResultSet rSet = ps.executeQuery();
 
             while (rSet.next()) {
@@ -104,7 +118,7 @@ public class MessageDAO implements DAO<Message> {
                         rSet.getLong("user_id"),
                         rSet.getLong("target_id"),
                         rSet.getString("message"),
-                        rSet.getTimestamp("date")
+                        rSet.getTimestamp("message_date")
                 ));
             }
 

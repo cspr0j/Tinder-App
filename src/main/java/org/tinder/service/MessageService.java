@@ -6,10 +6,13 @@ import org.tinder.entities.Message;
 
 import java.util.List;
 
-@AllArgsConstructor
-public class MessageService {
 
+public class MessageService {
     private final MessageDAO messageDAO;
+
+    public MessageService(Long id) {
+        messageDAO = new MessageDAO(id);
+    }
 
     public boolean save(Message message) {
         return messageDAO.save(message);

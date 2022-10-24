@@ -30,7 +30,7 @@
                     <div class="col-12 col-lg-12 col-md-12 text-center">
                                             <#list likedUsers as user>
                                                 <li>User picture = ${user.photo_url}</li> <br>
-                                                <li>User name = <a href="/message/${user.id}">${user.name} ${user.surname}</a></li> <br>
+                                                <li>User name = <a href="/message/${user.id}" >${user.name} ${user.surname}</a></li> <br>
                                                 <br>
                                             </#list>
 
