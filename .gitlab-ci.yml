@@ -9,9 +9,9 @@ build:
   stage: build
   image: maven:3.6.0-jdk-13-alpine
   script: mvn package
-  only:
-    - develop
-    - preprod
+#  only:
+#    - develop
+#    - preprod
 
 test:
   stage: test
@@ -24,6 +24,5 @@ deploy:
   script:
     - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api_key=$HEROKU_API_KEY
-  only:
-    - develop
-    - preprod
+#  only:
+#    - develop
