@@ -16,9 +16,9 @@ import java.util.List;
 
 public class MessageServlet extends HttpServlet {
 
-    HashMap<String, Object> data = new HashMap<>();
-    UserService userService = new UserService();
-    Freemarker freemarker = new Freemarker();
+    private final HashMap<String, Object> data = new HashMap<>();
+    private final UserService userService = new UserService();
+    private final Freemarker freemarker = new Freemarker();
     private Long senderID;
 
     @Override
@@ -28,7 +28,6 @@ public class MessageServlet extends HttpServlet {
         MessageService messageService = new MessageService(senderID);
 
         List<Message> messages = messageService.getAllItemsByTargetId(senderID, targetId);
-        System.out.println(messages);
 
         data.put("sender", userService.getByUsername(senderID));
         data.put("receiver", userService.getByUsername(targetId));
@@ -38,6 +37,6 @@ public class MessageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        System.out.println("hello");
     }
 }

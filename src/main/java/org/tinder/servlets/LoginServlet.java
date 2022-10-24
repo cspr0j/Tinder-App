@@ -1,6 +1,5 @@
 package org.tinder.servlets;
 
-import org.tinder.service.UserService;
 import org.tinder.utils.Freemarker;
 
 import javax.servlet.http.HttpServlet;
@@ -11,7 +10,6 @@ import java.util.HashMap;
 
 public class LoginServlet extends HttpServlet {
     private final Freemarker freemarker = new Freemarker();
-    private final UserService usersService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {

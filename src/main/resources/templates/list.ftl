@@ -9,9 +9,14 @@
     <link href="/templates/static/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="/templates/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
+
     <title>People list</title>
 </head>
 <body>
+
 
 <div class="container">
     <div class="row">
@@ -48,7 +53,7 @@
                                     <td class="align-middle">
                                         <form method="post">
                                             <button type="submit" name="id" value='${user.id}'
-                                                    class="btn btn-outline-secondary"><i class="fa fa-paper-plane">
+                                                    class="btn btn-primary"><i class="fa fa-paper-plane">
                                                     Message</i>
                                             </button>
                                         </form>
@@ -59,6 +64,10 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <a href="/users" role="button" class="btn btn-primary">Like page</a>
+                <a href="/logout" role="button" class="btn btn-danger">Log out</a>
             </div>
         </div>
     </div>

@@ -5,12 +5,19 @@
 
     <link href="/templates/static/css/style.css" rel="stylesheet" type="text/css"/>
     <link href="/templates/static/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+          crossorigin="anonymous">
 
 </head>
 <body>
 
 
 <div class="container-fluid h-100">
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <a href="/liked" role="button" class="btn btn-primary" style="display: block;width:130px;">Liked</a>
+        <a href="/logout" role="button" class="btn btn-danger" style="display: block;width:130px;">Log out</a>
+    </div>
     <div class="row justify-content-center h-100">
         <div class="col-md-8 col-xl-6 chat">
             <div class="card">
