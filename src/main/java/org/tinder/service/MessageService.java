@@ -19,7 +19,7 @@ public class MessageService {
     }
 
     public List<Message> getAllItemsFromDB() {
-        return messageDAO.getAllItemsFromDB();
+        return messageDAO.getAllItems();
     }
 
     public List<Message> getAllItemsByTargetId(Long userOne, Long userTwo) {

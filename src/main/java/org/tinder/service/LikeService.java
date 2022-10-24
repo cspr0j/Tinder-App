@@ -24,7 +24,7 @@ public class LikeService {
     }
 
     public List<Like> getAllLikes() {
-        return likeDAO.getAllItemsFromDB();
+        return likeDAO.getAllItems();
     }
 
     public List<Long> getAllLikesId() {

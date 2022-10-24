@@ -12,7 +12,7 @@ public interface DAO<T> {
         throw new RuntimeException("Method not allowed");
     }
 
-    default List<T> getAllItemsFromDB() {
+    default List<T> getAllItems() {
         throw new RuntimeException("Method not allowed");
     }
 

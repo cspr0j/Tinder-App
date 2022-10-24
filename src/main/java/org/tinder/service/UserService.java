@@ -14,11 +14,11 @@ public class UserService {
         return usersDAO.save(user);
     }
 
-    public User get(String username) {
+    public User getById(String username) {
         return usersDAO.get(username);
     }
 
-    public User get(Long id) {
+    public User getByUsername(Long id) {
         return usersDAO.get(id);
     }
 
@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public List<User> getAllActive() {
-        return usersDAO.getAllItemsFromDB();
+        return usersDAO.getAllItems();
     }
 
     public boolean update(User user) {

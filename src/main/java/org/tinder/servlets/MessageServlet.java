@@ -30,8 +30,8 @@ public class MessageServlet extends HttpServlet {
         List<Message> messages = messageService.getAllItemsByTargetId(senderID, targetId);
         System.out.println(messages);
 
-        data.put("sender", userService.get(senderID));
-        data.put("receiver", userService.get(targetId));
+        data.put("sender", userService.getByUsername(senderID));
+        data.put("receiver", userService.getByUsername(targetId));
         data.put("messages", messages);
         freemarker.render("chat.ftl", data, resp);
     }

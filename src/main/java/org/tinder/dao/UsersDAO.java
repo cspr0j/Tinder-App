@@ -48,21 +48,8 @@ public class UsersDAO implements DAO<User> {
             ps = connection.prepareStatement(statement);
             ps.setLong(1, userId);
             ps.setBoolean(2, true);
-            ResultSet rSet = ps.executeQuery();
 
-            if (rSet.next()) {
-                Long id = rSet.getLong("id");
-                String login = rSet.getString("email");
-                String password = rSet.getString("password");
-                String name = rSet.getString("name");
-                String surname = rSet.getString("surname");
-                String url = rSet.getString("photo_url");
-                Integer age = rSet.getInt("age");
-                String gender = rSet.getString("gender");
-                boolean isActive = rSet.getBoolean("is_active");
-
-                user = new User(id, login, password, name, surname, url, age, gender, isActive);
-            }
+            user = userBuilder(ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,21 +64,8 @@ public class UsersDAO implements DAO<User> {
             ps = connection.prepareStatement(statement);
             ps.setString(1, username);
             ps.setBoolean(2, true);
-            ResultSet rSet = ps.executeQuery();
 
-            if (rSet.next()) {
-                Long id = rSet.getLong("id");
-                String login = rSet.getString("email");
-                String password = rSet.getString("password");
-                String name = rSet.getString("name");
-                String surname = rSet.getString("surname");
-                String url = rSet.getString("photo_url");
-                Integer age = rSet.getInt("age");
-                String gender = rSet.getString("gender");
-                boolean isActive = rSet.getBoolean("is_active");
-
-                user = new User(id, login, password, name, surname, url, age, gender, isActive);
-            }
+            user = userBuilder(ps);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -99,7 +73,7 @@ public class UsersDAO implements DAO<User> {
     }
 
     @Override
-    public List<User> getAllItemsFromDB() {
+    public List<User> getAllItems() {
         final String statement = "SELECT * FROM users where is_active = ? ORDER BY id";
         PreparedStatement ps;
         List<User> users = new ArrayList<>();
@@ -109,7 +83,6 @@ public class UsersDAO implements DAO<User> {
             ResultSet rSet = ps.executeQuery();
 
             while (rSet.next()) {
-
                 users.add(
                         new User(
                                 rSet.getLong("id"),
@@ -161,23 +134,30 @@ public class UsersDAO implements DAO<User> {
             ps.setBoolean(1, true);
             ps.setLong(2, userId);
             ps.setLong(3, userId);
-            ResultSet rSet = ps.executeQuery();
-
-            if (rSet.next()) {
-                Long id = rSet.getLong("id");
-                String login = rSet.getString("email");
-                String password = rSet.getString("password");
-                String name = rSet.getString("name");
-                String surname = rSet.getString("surname");
-                String url = rSet.getString("photo_url");
-                Integer age = rSet.getInt("age");
-                String gender = rSet.getString("gender");
-                boolean isActive = rSet.getBoolean("is_active");
-
-                user = new User(id, login, password, name, surname, url, age, gender, isActive);
-            }
+            user = userBuilder(ps);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return user;
+    }
+
+    private User userBuilder(PreparedStatement ps) throws SQLException {
+        ResultSet rSet = ps.executeQuery();
+        User user = null;
+
+        if (rSet.next()) {
+
+            Long id = rSet.getLong("id");
+            String login = rSet.getString("email");
+            String password = rSet.getString("password");
+            String name = rSet.getString("name");
+            String surname = rSet.getString("surname");
+            String url = rSet.getString("photo_url");
+            Integer age = rSet.getInt("age");
+            String gender = rSet.getString("gender");
+            boolean isActive = rSet.getBoolean("is_active");
+
+            user = new User(id, login, password, name, surname, url, age, gender, isActive);
         }
         return user;
     }
