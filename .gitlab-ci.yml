@@ -1,0 +1,29 @@
+image: adoptopenjdk/openjdk11:alpine-jre
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  image: maven:3.6.0-jdk-13-alpine
+  script: mvn package
+  only:
+    - develop
+    - preprod
+
+test:
+  stage: test
+  image: maven:3.6.0-jdk-13-alpine
+  script: mvn test
+
+deploy:
+  stage: deploy
+  image: ruby:latest
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api_key=$HEROKU_API_KEY
+  only:
+    - develop
+    - preprod
