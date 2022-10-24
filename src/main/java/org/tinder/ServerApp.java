@@ -23,6 +23,7 @@ public class ServerApp {
 
         ServletContextHandler contextHandler = new ServletContextHandler();
         contextHandler.addServlet(new ServletHolder(new LoginServlet()), "/login");
+        contextHandler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
         contextHandler.addServlet(new ServletHolder(new RegistrationServlet()), "/register");
         contextHandler.addServlet(new ServletHolder(new LikedServletViaSQL()), "/users");
         contextHandler.addServlet(new ServletHolder(new ListServlet()), "/liked");

@@ -34,7 +34,6 @@ public class LoginFilter implements Filter {
                 throw new RuntimeException();
             }
             Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
-            System.out.printf("Cookie name = %s, id = %s\n", cookie.getName(), cookie.getValue());
             response.addCookie(cookie);
         }
         filterChain.doFilter(request, response);
