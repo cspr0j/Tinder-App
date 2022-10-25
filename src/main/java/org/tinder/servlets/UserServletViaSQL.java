@@ -26,21 +26,23 @@ public class UserServletViaSQL extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> users = userService.getAllActive();
-        User user = users.get(count);
-        id = user.getId();
+
+//        id = user.getId();
 //        userList.add(user);
         
-        if (count + 1 == users.size()) {
+        if (count == users.size()) {
             //todo liked list html gonderilsin
             count = 0;
             resp.sendRedirect("/likes");
         } else {
+            User user = users.get(count);
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("users", user);
             count++;
+            freemarker.render("users.ftl", data, resp);
         }
 
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("users", user);
-        freemarker.render("users.ftl", data, resp);
+
         
     }
 
