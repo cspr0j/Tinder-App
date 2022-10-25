@@ -31,7 +31,7 @@ public class RegistrationServlet extends HttpServlet {
         String gender = req.getParameter("gender");
 
         User user = new User(email, password, name, surname, photoUrl, age, gender);
-        if (usersService.getById(user.getEmail()) != null) {
+        if (usersService.getByUsername(user.getEmail()) != null) {
             //TODO add exception
             throw new RuntimeException();
         }

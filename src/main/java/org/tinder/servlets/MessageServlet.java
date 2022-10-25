@@ -31,8 +31,8 @@ public class MessageServlet extends HttpServlet {
 
         List<Message> messages = messageService.getAllItemsByTargetId(senderID, targetId);
 
-        data.put("sender", userService.getByUsername(senderID));
-        data.put("receiver", userService.getByUsername(targetId));
+        data.put("sender", userService.getById(senderID));
+        data.put("receiver", userService.getById(targetId));
         data.put("messages", messages);
         freemarker.render("chat.ftl", data, resp);
     }

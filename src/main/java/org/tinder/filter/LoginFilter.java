@@ -28,7 +28,7 @@ public class LoginFilter implements Filter {
             String login = request.getParameter("login");
             String password = request.getParameter("password");
             UserService userService = new UserService();
-            User user = userService.getById(login);
+            User user = userService.getByUsername(login);
             if (user == null || !user.getPassword().equals(password) || !user.isActive()) {
                 //TODO add exception
                 throw new RuntimeException();

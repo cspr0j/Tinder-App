@@ -14,11 +14,11 @@ public class UserService {
         return usersDAO.save(user);
     }
 
-    public User getById(String username) {
+    public User getByUsername(String username) {
         return usersDAO.get(username);
     }
 
-    public User getByUsername(Long id) {
+    public User getById(Long id) {
         return usersDAO.get(id);
     }
 
