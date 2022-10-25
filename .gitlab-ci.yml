@@ -24,4 +24,3 @@ deploy:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api_key=$HEROKU_API_KEY
   only:
     - develop
-    - preprod
