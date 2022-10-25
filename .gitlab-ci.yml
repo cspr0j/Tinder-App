@@ -1,5 +1,6 @@
 image: adoptopenjdk/openjdk11:alpine-jre
 
+
 stages:
   - build
   - test
