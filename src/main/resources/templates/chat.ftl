@@ -55,6 +55,7 @@
                         </#if>
                         <br>
                         <br>
+                        <br>
                     </#list>
                 </div>
                 <div class="card-footer">
@@ -64,7 +65,7 @@
                                 <input type="text" name="message" class="form-control"
                                        placeholder="Type your message..." autocomplete="off" aria-label="Message Input">
                                 <div class="input-group-append">
-                                    <button id="send" class="btn btn-primary" type="button">Send</button>
+                                    <button id="send" class="btn btn-primary" type="submit">Send</button>
                                 </div>
                             </div>
                         </form>

@@ -22,11 +22,11 @@ public class MessageService {
         return messageDAO.getAllItems();
     }
 
-    public List<Message> getAllItemsByTargetId(Long userOne, Long userTwo) {
+    public List<Message> getAllItemsByTargetId(Long idFrom, Long idTo) {
         return getAllItemsFromDB().stream()
                 .filter(message -> !message.getUserId().equals(message.getTargetId()))
-                .filter(message -> message.getTargetId().equals(userOne) || message.getTargetId().equals(userTwo))
-                .filter(message -> message.getUserId().equals(userOne) || message.getUserId().equals(userTwo))
+                .filter(message -> message.getTargetId().equals(idFrom) || message.getTargetId().equals(idTo))
+                .filter(message -> message.getUserId().equals(idTo) || message.getUserId().equals(idFrom))
                 .collect(Collectors.toList());
     }
 

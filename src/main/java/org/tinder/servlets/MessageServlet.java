@@ -19,13 +19,15 @@ public class MessageServlet extends HttpServlet {
     private final HashMap<String, Object> data = new HashMap<>();
     private final UserService userService = new UserService();
     private final Freemarker freemarker = new Freemarker();
+    private MessageService messageService;
     private Long senderID;
+    private Long targetId;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         senderID = CookieUtil.getValue(req);
-        Long targetId = Long.parseLong(req.getPathInfo().replace("/", ""));
-        MessageService messageService = new MessageService(senderID);
+        targetId = Long.parseLong(req.getPathInfo().replace("/", ""));
+        messageService = new MessageService(senderID);
 
         List<Message> messages = messageService.getAllItemsByTargetId(senderID, targetId);
 
@@ -37,6 +39,11 @@ public class MessageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("hello");
+        String text = req.getParameter("message");
+        Message msg = new Message(senderID, targetId, text);
+        if (!text.isEmpty()) {
+            messageService.save(msg);
+        }
+        resp.sendRedirect("/messages/" + targetId);
     }
 }

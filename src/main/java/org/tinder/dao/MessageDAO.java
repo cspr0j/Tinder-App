@@ -39,7 +39,7 @@ public class MessageDAO implements DAO<Message> {
     @Override
     public List<Message> getAllItems() {
         List<Message> messages = new ArrayList<>();
-        final String statement = "SELECT * FROM messages WHERE is_deleted = ?";
+        final String statement = "SELECT * FROM messages WHERE is_deleted = ? ORDER BY date";
         try {
             PreparedStatement ps = connection.prepareStatement(statement);
             ps.setBoolean(1, false);

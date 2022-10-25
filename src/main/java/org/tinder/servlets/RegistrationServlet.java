@@ -14,7 +14,6 @@ public class RegistrationServlet extends HttpServlet {
     private final Freemarker freemarker = new Freemarker();
     private final UserService usersService = new UserService();
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         HashMap<String, Object> data = new HashMap<>();
