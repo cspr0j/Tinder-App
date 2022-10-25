@@ -1,5 +1,6 @@
 image: adoptopenjdk/openjdk11:alpine-jre
 
+
 stages:
   - build
   - test
@@ -8,7 +9,7 @@ stages:
 build:
   stage: build
   image: maven:3.6.0-jdk-13-alpine
-  script: mvn package
+  script: mvn clean package
 
 test:
   stage: test
