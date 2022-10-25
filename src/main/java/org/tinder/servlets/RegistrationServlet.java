@@ -32,8 +32,8 @@ public class RegistrationServlet extends HttpServlet {
 
         User user = new User(email, password, name, surname, photoUrl, age, gender);
         if (usersService.getByUsername(user.getEmail()) != null) {
-            //TODO add exception
-            throw new RuntimeException();
+            freemarker.render("reg-error.html", new HashMap<>(), resp);
+            return;
         }
         usersService.save(user);
 

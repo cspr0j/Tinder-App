@@ -28,8 +28,7 @@ public class Freemarker {
             resp.setCharacterEncoding(String.valueOf(StandardCharsets.UTF_8));
             config.getTemplate(templateFile).process(data, resp.getWriter());
         } catch (TemplateException | IOException e) {
-            //TODO: create exception message
-            throw new IllegalArgumentException("", e);
+            throw new IllegalArgumentException("Unexpected value", e);
         }
     }
 }
