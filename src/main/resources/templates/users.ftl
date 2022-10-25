@@ -27,10 +27,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-lg-12 col-md-12 text-center">
-                    <#list userList as user>
-                        <li>User picture = ${user.pic}</li> <br>
-                        <li>User name = ${user.name}</li> <br>
-                    </#list>
+<#--                    <#list users as user>-->
+<#--                        <li>User picture = ${user.pic}</li> <br>-->
+<#--                        <li>User name = ${user.name} ${user.surname}</li> <br>-->
+<#--                        <li hidden>${user.id}</li>-->
+<#--                    </#list>-->
+                    <div>
+                        <h3>User picture = ${users.photo_url}</h3>
+                        <h3>User name = ${users.name} ${users.surname}</h3>
+                    </div>
 
                 </div>
                 <div class="col-12 col-lg-6">

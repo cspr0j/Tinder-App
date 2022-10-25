@@ -32,10 +32,13 @@ public class LoginServlet extends HttpServlet {
         User user = usersService.get(login);
         if (user == null || !user.getPassword().equals(password) || !user.isActive()) {
             //TODO add exception
-            throw new RuntimeException();
+//            throw new RuntimeException();
+            resp.sendRedirect("templates/login-error.html");
         }
 
         Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
+        //todo bunu nezerde saxla, filter qoyan zaman bu islemsesine mane ola biler
+//        cookie.setMaxAge(0);
         System.out.printf("Cookie name = %s, id = %s\n", cookie.getName(), cookie.getValue());
         resp.addCookie(cookie);
 

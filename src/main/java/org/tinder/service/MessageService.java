@@ -1,17 +1,17 @@
 package org.tinder.service;
 
+import lombok.AllArgsConstructor;
 import org.tinder.dao.MessageDAO;
 import org.tinder.entities.Message;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class MessageService {
-
     private final MessageDAO messageDAO;
 
     public MessageService(Long id) {
-        this.messageDAO = new MessageDAO(id);
+        messageDAO = new MessageDAO(id);
     }
 
     public boolean save(Message message) {
@@ -27,12 +27,8 @@ public class MessageService {
         return messageDAO.getAllItemsFromDB();
     }
 
-    public List<Message> getAllItemsByTargetId(Long userOne, Long userTwo) {
-        return getAllItemsFromDB().stream()
-                .filter(message -> !message.getUserId().equals(message.getTargetId()))
-                .filter(message -> message.getTargetId().equals(userOne) || message.getTargetId().equals(userTwo))
-                .filter(message -> message.getUserId().equals(userOne) || message.getUserId().equals(userTwo))
-                .collect(Collectors.toList());
+    public List<Message> getAllItemsByTargetId(Long targetId) {
+        return messageDAO.getAllItemsByTargetId(targetId);
     }
 
     public boolean update(Message message) {

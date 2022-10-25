@@ -58,6 +58,26 @@ public class LikeDAO implements DAO<Like> {
         return like;
     }
 
+    public List<Long> getByID(Long id) {
+        List<Long> likeList = new ArrayList<>();
+        Like like = null;
+
+        final String statement = "select distinct(liked_user_id) as liked_user_id from likes where user_id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(statement);
+            ps.setLong(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Long likedUserId = rs.getLong("liked_user_id");
+                likeList.add(likedUserId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return likeList;
+    }
+
     @Override
     public List<Like> getAllItemsFromDB() {
         List<Like> likes = new ArrayList<>();

@@ -20,7 +20,7 @@ public class UsersDAO implements DAO<User> {
 
     @Override
     public boolean save(User user) {
-        final String statement = "INSERT INTO users (email,password, name, surname, photo_url, age, gender)" +
+        final String statement = "INSERT INTO users (email,password, username, surname, photo_url, age, gender)" +
                 " VALUES (?,?,?,?,?,?,?)";
         PreparedStatement ps;
         try {
@@ -41,7 +41,7 @@ public class UsersDAO implements DAO<User> {
 
     @Override
     public User get(Long userId) {
-        final String statement = "SELECT * FROM users WHERE id = ? AND is_active = ?";
+        final String statement = "SELECT * FROM users WHERE id = ? AND active = ?";
         User user = null;
         PreparedStatement ps;
         try {
@@ -50,16 +50,16 @@ public class UsersDAO implements DAO<User> {
             ps.setBoolean(2, true);
             ResultSet rSet = ps.executeQuery();
 
-            if (rSet.next()) {
+            while (rSet.next()) {
                 Long id = rSet.getLong("id");
                 String login = rSet.getString("email");
                 String password = rSet.getString("password");
-                String name = rSet.getString("name");
+                String name = rSet.getString("username");
                 String surname = rSet.getString("surname");
-                String url = rSet.getString("photo_url");
                 Integer age = rSet.getInt("age");
                 String gender = rSet.getString("gender");
-                boolean isActive = rSet.getBoolean("is_active");
+                boolean isActive = rSet.getBoolean("active");
+                String url = rSet.getString("photo_url");
 
                 user = new User(id, login, password, name, surname, url, age, gender, isActive);
             }
@@ -70,7 +70,7 @@ public class UsersDAO implements DAO<User> {
     }
 
     public User get(String username) {
-        final String statement = "SELECT * FROM users WHERE email = ? AND is_active = ?";
+        final String statement = "SELECT * FROM users WHERE email = ? AND active = ?";
         User user = null;
         PreparedStatement ps;
         try {
@@ -83,12 +83,12 @@ public class UsersDAO implements DAO<User> {
                 Long id = rSet.getLong("id");
                 String login = rSet.getString("email");
                 String password = rSet.getString("password");
-                String name = rSet.getString("name");
+                String name = rSet.getString("username");
                 String surname = rSet.getString("surname");
-                String url = rSet.getString("photo_url");
                 Integer age = rSet.getInt("age");
                 String gender = rSet.getString("gender");
-                boolean isActive = rSet.getBoolean("is_active");
+                boolean isActive = rSet.getBoolean("active");
+                String url = rSet.getString("photo_url");
 
                 user = new User(id, login, password, name, surname, url, age, gender, isActive);
             }
@@ -100,7 +100,7 @@ public class UsersDAO implements DAO<User> {
 
     @Override
     public List<User> getAllItemsFromDB() {
-        final String statement = "SELECT * FROM users where is_active = ? ORDER BY id";
+        final String statement = "SELECT * FROM users where active = ? ORDER BY id";
         PreparedStatement ps;
         List<User> users = new ArrayList<>();
         try {
@@ -115,13 +115,13 @@ public class UsersDAO implements DAO<User> {
                                 rSet.getLong("id"),
                                 rSet.getString("email"),
                                 rSet.getString("password"),
-                                rSet.getString("name"),
+                                rSet.getString("username"),
                                 rSet.getString("surname"),
                                 rSet.getString("photo_url"),
                                 rSet.getInt("age"),
                                 rSet.getString("gender"),
-                                rSet.getBoolean("is_active")
-                        ));
+                                rSet.getBoolean("active")
+                                ));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -180,7 +180,7 @@ public class UsersDAO implements DAO<User> {
 
     public User getNotLikedUserV2(Long userId){
         final String statement = "SELECT * FROM users " +
-                "WHERE is_active = ? AND NOT id = ? " +
+                "WHERE active = ? AND NOT id = ? " +
                 "AND id NOT IN (SELECT l.liked_user_id FROM likes l where user_id = ?) ORDER BY id LIMIT 1";
 
         User user = null;
@@ -196,12 +196,12 @@ public class UsersDAO implements DAO<User> {
                 Long id = rSet.getLong("id");
                 String login = rSet.getString("email");
                 String password = rSet.getString("password");
-                String name = rSet.getString("name");
+                String name = rSet.getString("username");
                 String surname = rSet.getString("surname");
-                String url = rSet.getString("photo_url");
                 Integer age = rSet.getInt("age");
                 String gender = rSet.getString("gender");
-                boolean isActive = rSet.getBoolean("is_active");
+                boolean isActive = rSet.getBoolean("active");
+                String url = rSet.getString("photo_url");
 
                 user = new User(id, login, password, name, surname, url, age, gender, isActive);
             }
