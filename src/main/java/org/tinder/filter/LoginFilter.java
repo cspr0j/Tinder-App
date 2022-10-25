@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class LoginFilter implements Filter {
 
     private final Freemarker freemarker = new Freemarker();
+
     @Override
     public void init(FilterConfig filterConfig) {
 
