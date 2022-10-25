@@ -51,7 +51,8 @@ public class MessageDAO implements DAO<Message> {
                         rSet.getLong("user_id"),
                         rSet.getLong("target_id"),
                         rSet.getString("message"),
-                        rSet.getTimestamp("date")
+                        rSet.getTimestamp("date"),
+                        rSet.getBoolean("is_deleted")
                 ));
             }
 

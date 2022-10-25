@@ -15,6 +15,7 @@ public class Message {
     private Long targetId;
     private String text;
     private Timestamp date;
+    private boolean isDeleted;
 
     public Message(Long userId, Long targetId, String text) {
         this.userId = userId;
@@ -29,8 +30,9 @@ public class Message {
                 "messageId=" + messageId +
                 ", userId=" + userId +
                 ", targetId=" + targetId +
-                ", text=" + text +
+                ", text='" + text + '\'' +
                 ", date=" + Converter.converterToString(date) +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }
