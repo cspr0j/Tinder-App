@@ -17,6 +17,7 @@
 </head>
 <body>
 
+
 <div class="container">
     <div class="row">
         <div class="col-8 offset-2">
@@ -32,7 +33,6 @@
                                 <tr>
                                     <td width="10">
                                         <div class="avatar-img">
-                                            <#--<img class="img-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxhcCYW4QDWMOjOuUTxOd50KcJvK-rop9qE9zRltSbVS_bO-cfWA"  alt=""/>-->
                                             <img class="img-circle" src="${user.photo_url}" alt=""/>
                                         </div>
                                     </td>
@@ -52,7 +52,8 @@
                                     <td class="align-middle">
                                         <form method="post">
                                             <button type="submit" name="id" value='${user.id}'
-                                                    class="btn btn-outline-secondary"><i class="fa fa-paper-plane"> Message</i>
+                                                    class="btn btn-primary"><i class="fa fa-paper-plane">
+                                                    Message</i>
                                             </button>
                                         </form>
                                     </td>
@@ -63,9 +64,12 @@
                     </div>
                 </div>
             </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <a href="/users" role="button" class="btn btn-primary">Like page</a>
+                <a href="/logout" role="button" class="btn btn-danger">Log out</a>
+            </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

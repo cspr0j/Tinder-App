@@ -1,7 +1,6 @@
 package org.tinder.servlets;
 
 import org.tinder.entities.Message;
-import org.tinder.entities.User;
 import org.tinder.service.MessageService;
 import org.tinder.service.UserService;
 import org.tinder.utils.CookieUtil;
@@ -17,38 +16,34 @@ import java.util.List;
 
 public class MessageServlet extends HttpServlet {
 
-
-
-
+    private final HashMap<String, Object> data = new HashMap<>();
     private final UserService userService = new UserService();
     private final Freemarker freemarker = new Freemarker();
+    private MessageService messageService;
+    private Long senderID;
+    private Long targetId;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long idFrom = CookieUtil.getValue(req);
-        final MessageService messageService = new MessageService(idFrom);
-        String idS = req.getPathInfo().substring(1);
-        Long idTo = Long.parseLong(idS);
+        senderID = CookieUtil.getValue(req);
+        targetId = Long.parseLong(req.getPathInfo().replace("/", ""));
+        messageService = new MessageService(senderID);
 
-        System.out.println("id from = " + idFrom);
-        System.out.println("id to = " + idTo);
+        List<Message> messages = messageService.getAllItemsByTargetId(senderID, targetId);
 
-        List<Message> messages = messageService.getAllItemsByTargetId(idTo);
-        User receiver = userService.get(idTo);
-        User sender = userService.get(idFrom);
-
-        System.out.println("messages = " + messages);
-
-        HashMap<String, Object> data = new HashMap<>();
         data.put("messages", messages);
-        data.put("receiver", receiver);
-        data.put("sender", sender);
+        data.put("sender", userService.getById(senderID));
+        data.put("receiver", userService.getById(targetId));
         freemarker.render("chat.ftl", data, resp);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        String text = req.getParameter("message");
+        Message msg = new Message(senderID, targetId, text);
+        if (!text.isEmpty()) {
+            messageService.save(msg);
+        }
+        resp.sendRedirect("/messages/" + targetId);
     }
 }

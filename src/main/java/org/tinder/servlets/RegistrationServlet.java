@@ -14,7 +14,6 @@ public class RegistrationServlet extends HttpServlet {
     private final Freemarker freemarker = new Freemarker();
     private final UserService usersService = new UserService();
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         HashMap<String, Object> data = new HashMap<>();
@@ -32,7 +31,7 @@ public class RegistrationServlet extends HttpServlet {
         String gender = req.getParameter("gender");
 
         User user = new User(email, password, name, surname, photoUrl, age, gender);
-        if (usersService.get(user.getEmail()) != null) {
+        if (usersService.getByUsername(user.getEmail()) != null) {
             //TODO add exception
             throw new RuntimeException();
         }

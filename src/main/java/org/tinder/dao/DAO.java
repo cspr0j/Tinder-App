@@ -12,7 +12,7 @@ public interface DAO<T> {
         throw new RuntimeException("Method not allowed");
     }
 
-    default List<T> getAllItemsFromDB() {
+    default List<T> getAllItems() {
         throw new RuntimeException("Method not allowed");
     }
 
@@ -21,14 +21,6 @@ public interface DAO<T> {
     }
 
     default boolean delete(Long id) {
-        throw new RuntimeException("Method not allowed");
-    }
-
-    default List<T> getAllItemsByTargetId(Long idTo) {
-        throw new RuntimeException("Method not allowed");
-    }
-
-    default boolean delete(Long idTo, List<Long> itemsId) {
         throw new RuntimeException("Method not allowed");
     }
 }

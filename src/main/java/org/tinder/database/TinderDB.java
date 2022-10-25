@@ -10,7 +10,6 @@ import java.sql.SQLException;
 public class TinderDB {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/Tinder";
 
-    //TODO: change if yours is different
     private static final String USERNAME = "postgres";
     private static final String PASSWORD = "admin";
 

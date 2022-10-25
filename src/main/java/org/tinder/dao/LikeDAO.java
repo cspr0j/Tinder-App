@@ -14,12 +14,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LikeDAO implements DAO<Like> {
 
-    private final Long idFrom;
     private static final Connection connection;
 
     static {
         connection = TinderDB.connectToDB();
     }
+
+    private final Long idFrom;
 
     @Override
     public boolean save(Like like) {
@@ -58,30 +59,9 @@ public class LikeDAO implements DAO<Like> {
         return like;
     }
 
-    public List<Long> getByID(Long id) {
-        List<Long> likeList = new ArrayList<>();
-        Like like = null;
-
-        final String statement = "select distinct(liked_user_id) as liked_user_id from likes where user_id = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(statement);
-            ps.setLong(1, id);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Long likedUserId = rs.getLong("liked_user_id");
-                likeList.add(likedUserId);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return likeList;
-    }
-
     @Override
-    public List<Like> getAllItemsFromDB() {
+    public List<Like> getAllItems() {
         List<Like> likes = new ArrayList<>();
-//        final String statement = "SELECT * FROM likes WHERE user_id = ?"; //old
         final String statement = "SELECT * FROM likes WHERE user_id = ? ORDER BY liked_user_id"; // new
         try {
             PreparedStatement ps = connection.prepareStatement(statement);

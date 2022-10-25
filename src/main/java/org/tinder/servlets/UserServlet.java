@@ -12,46 +12,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class UserServlet extends HttpServlet {
-
-    List<User> userList = new ArrayList<>();
-
-    List<Integer> likedUsers = new ArrayList<>();
     private final Freemarker freemarker = new Freemarker();
+    private final HashMap<String, Object> data = new HashMap<>();
+    private final UserService userService = new UserService();
+    private Long id;
+    private int count = 0;
 
-    int count = 0;
-    UserService userService = new UserService();
-    long id;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        this.id = CookieUtil.getValue(req);
+        List<User> users = userService.getNotLikedUser(id);
 
-        List<User> users = userService.getAllActive();
-        User user = users.get(count);
-        id = user.getId();
-        userList.add(user);
+        if (count == users.size()) {
+            count = 0;
+            resp.sendRedirect("/liked");
+        } else {
+            User user = users.get(count);
+            count++;
 
-        HashMap<String, Object> data = new HashMap<>();
-        data.put("userList", userList);
-        freemarker.render("users.ftl", data, resp);
-        count++;
+            data.put("user", user);
+            freemarker.render("like-page.ftl", data, resp);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String dislike = req.getParameter("dislike");
-        String like = req.getParameter("like");
-        System.out.println(dislike);
-        System.out.println(like);
+        Long userId = Long.valueOf(req.getParameter("userId"));
+        LikeService likeService = new LikeService(userId);
 
-        if (!req.getParameter("like").isEmpty()) {
-            Long id = CookieUtil.getValue(req);
-            LikeService likeService = new LikeService(id);
-            likeService.save(new Like(id, this.id));
-            resp.sendRedirect("templates/users.ftl");
+        boolean likeB = Boolean.parseBoolean(req.getParameter("like"));
+        if (likeB) {
+            likeService.save(new Like(this.id, userId));
         }
+        resp.sendRedirect("/users");
     }
 }

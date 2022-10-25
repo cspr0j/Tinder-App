@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -cp ./target/classes:target/deps/* org.tinder.ServerApp
+web: java -jar target/TinderApp.jar
