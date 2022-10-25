@@ -11,7 +11,6 @@ build:
   script: mvn package
   only:
     - develop
-    - preprod
 
 test:
   stage: test
@@ -26,4 +25,3 @@ deploy:
     - dpl --provider=heroku --app=$HEROKU_APP_NAME --api_key=$HEROKU_API_KEY
   only:
     - develop
-    - preprod
