@@ -38,7 +38,7 @@ public class LoginFilter implements Filter {
                 return;
             }
             Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
-            cookie.setMaxAge(60*15);//15 min
+            cookie.setMaxAge(60 * 15);//15 min
             response.addCookie(cookie);
         }
         filterChain.doFilter(request, response);
