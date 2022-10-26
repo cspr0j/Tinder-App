@@ -20,7 +20,6 @@ public class UserServlet extends HttpServlet {
     private final HashMap<String, Object> data = new HashMap<>();
     private final HashMap<Long, Integer> mapId = new HashMap<>();
     private final UserService userService = new UserService();
-    private int count;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,9 +29,8 @@ public class UserServlet extends HttpServlet {
         }
 
         List<User> users = userService.getNotLikedUser(id);
-        if (count == users.size() - 1) {
-            count = 0;
-            mapId.put(id, count);
+        if (mapId.get(id) == users.size()) {
+            mapId.put(id, 0);
             resp.sendRedirect("/liked");
         } else {
             User user = users.get(mapId.get(id));
@@ -53,8 +51,8 @@ public class UserServlet extends HttpServlet {
             likeService.save(new Like(id, userId));
         }
 
-        count = mapId.get(id);
-        mapId.put(id, count + 1);
+        int count = mapId.get(id) + 1;
+        mapId.put(id, count);
         resp.sendRedirect("/users");
     }
 }
