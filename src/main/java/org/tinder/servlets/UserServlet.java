@@ -18,21 +18,24 @@ import java.util.List;
 public class UserServlet extends HttpServlet {
     private final Freemarker freemarker = new Freemarker();
     private final HashMap<String, Object> data = new HashMap<>();
+    private final HashMap<Long, Integer> mapId = new HashMap<>();
     private final UserService userService = new UserService();
-    private Long id;
-    private int count = 0;
+    private int count;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.id = CookieUtil.getValue(req);
-        List<User> users = userService.getNotLikedUser(id);
+        Long id = CookieUtil.getValue(req);
+        if (!mapId.containsKey(id)) {
+            mapId.put(id, 0); // id -> count
+        }
 
-        if (count == users.size()) {
+        List<User> users = userService.getNotLikedUser(id);
+        if (count == users.size() - 1) {
             count = 0;
+            mapId.put(id, count);
             resp.sendRedirect("/liked");
         } else {
-            User user = users.get(count);
-            count++;
+            User user = users.get(mapId.get(id));
 
             data.put("user", user);
             freemarker.render("like-page.ftl", data, resp);
@@ -41,13 +44,17 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Long id = CookieUtil.getValue(req);
         Long userId = Long.valueOf(req.getParameter("userId"));
         LikeService likeService = new LikeService(userId);
 
-        boolean likeB = Boolean.parseBoolean(req.getParameter("like"));
-        if (likeB) {
-            likeService.save(new Like(this.id, userId));
+        boolean isLiked = Boolean.parseBoolean(req.getParameter("like"));
+        if (isLiked) {
+            likeService.save(new Like(id, userId));
         }
+
+        count = mapId.get(id);
+        mapId.put(id, count + 1);
         resp.sendRedirect("/users");
     }
 }
