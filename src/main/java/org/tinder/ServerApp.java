@@ -32,7 +32,6 @@ public class ServerApp {
 
         ServletContextHandler contextHandler = new ServletContextHandler();
         contextHandler.addServlet(new ServletHolder(new LoginServlet()), "/login");
-        contextHandler.addServlet(new ServletHolder(new LoginServlet()), "/");
         contextHandler.addServlet(new ServletHolder(new RegistrationServlet()), "/register");
         contextHandler.addServlet(new ServletHolder(new LogoutServlet()), "/logout");
         contextHandler.addServlet(new ServletHolder(new UserServlet()), "/users");
@@ -41,7 +40,7 @@ public class ServerApp {
         contextHandler.addServlet(new ServletHolder(new FileServlet()), "/templates/*");
 
         contextHandler.addFilter(LoginFilter.class, "/login/*", EnumSet.of(DispatcherType.REQUEST));
-        contextHandler.addFilter(RedirectFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
+        contextHandler.addFilter(RedirectFilter.class, "*", EnumSet.of(DispatcherType.REQUEST));
 
         server.setHandler(contextHandler);
 
